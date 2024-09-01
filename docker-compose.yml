@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  cont_1:
+    build: ./frontend
+    ports: 
+      - 3000:3000
+    image: "pratyushk4869/frontend:working"
+  cont_2:
+    build: ./backend
+    ports:
+      - 3001:3001
+    image: "pratyushk4869/backend:working"
+    environment:
+      - DB_URL=mongodb://cont_3/cust_db
+    
+  cont_3:
+    build: ./db
+    ports:
+      - 27017:27017
+    volumes:
+      - cust_db:/data/db
+    image: "pratyushk4869/db:working"
+volumes:
+  cust_db:
